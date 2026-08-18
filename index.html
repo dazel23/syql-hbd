@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday ❤️</title>
+  <meta name="theme-color" content="#170d16" />
+  <style>
+    :root{
+      --bg:#160c15;
+      --bg2:#281423;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.12);
+      --text:#fff7fb;
+      --muted:#e4cfd8;
+      --accent:#ff7aa6;
+      --accent2:#ffd7e4;
+      --gold:#ffd58a;
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+      --radius:28px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      min-height:100vh;
+      overflow-x:hidden;
+      color:var(--text);
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,122,166,.18), transparent 30rem),
+        radial-gradient(circle at 85% 10%, rgba(255,213,138,.12), transparent 28rem),
+        linear-gradient(180deg, var(--bg), var(--bg2) 60%, #120911);
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0; pointer-events:none; z-index:-2;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.75) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.30) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.28) 0 1px, transparent 1.5px);
+      background-size:180px 180px, 240px 240px, 300px 300px;
+      opacity:.35;
+    }
+    a{color:inherit}
+    .wrap{width:min(1100px, calc(100% - 32px)); margin:auto}
+    .hidden{display:none !important}
+
+    .hero{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:40px 0;
+      position:relative;
+    }
+    .heroCard{
+      width:min(900px, 100%);
+      padding:clamp(26px, 6vw, 58px);
+      border-radius:40px;
+      background:linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+      position:relative;
+      overflow:hidden;
+    }
+    .heroCard::before{
+      content:"";
+      position:absolute;
+      width:240px;height:240px;border-radius:50%;
+      right:-60px;top:-60px;
+      background:radial-gradient(circle, rgba(255,122,166,.22), transparent 70%);
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--accent2);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.8rem;
+      font-weight:700;
+    }
+    h1{
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:clamp(3rem, 9vw, 7rem);
+      letter-spacing:-.05em;
+      line-height:.92;
+      margin:22px 0 14px;
+    }
+    .name{
+      background:linear-gradient(100deg, #fff, var(--accent2) 50%, var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .lead{
+      max-width:700px;
+      margin:0 auto;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:clamp(1rem, 2vw, 1.15rem);
+    }
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:12px;
+      max-width:560px;
+      margin:28px auto 0;
+    }
+    .timebox{
+      padding:16px 10px;
+      border-radius:24px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .timebox strong{display:block;font-size:1.8rem}
+    .timebox span{font-size:.76rem; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
+
+    .btnRow{display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:28px}
+    .btn{
+      appearance:none; border:0; cursor:pointer; text-decoration:none;
+      padding:14px 20px; border-radius:999px; font-weight:800; font-size:.95rem;
+      transition:.2s transform,.2s background,.2s box-shadow;
+      position:relative; overflow:hidden;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .primary{background:linear-gradient(100deg, var(--accent), #ffb5ca); color:#2a1320; box-shadow:0 10px 34px rgba(255,122,166,.26)}
+    .secondary{background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.12)}
+
+    .click-pop{animation:clickPop .36s ease}
+    @keyframes clickPop{0%{transform:scale(1)}40%{transform:scale(.96)}100%{transform:scale(1.02)}}
+    .ripple{position:absolute; border-radius:50%; transform:scale(0); background:rgba(255,255,255,.35); animation:ripple .6s linear; pointer-events:none}
+    @keyframes ripple{to{transform:scale(4); opacity:0}}
+
+    .menuWrap{padding:24px 0 80px}
+    .menuHeader{text-align:center; margin-bottom:26px}
+    .menuHeader h2{font-family:Georgia, serif; font-size:clamp(2rem, 5vw, 3.8rem); margin:10px 0 8px; letter-spacing:-.03em}
+    .menuHeader p{color:var(--muted); max-width:620px; margin:auto; line-height:1.7}
+    .optionGrid{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:16px;
+    }
+    .option{
+      grid-column:span 6;
+      min-height:220px;
+      border-radius:32px;
+      padding:28px;
+      background:linear-gradient(145deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      transition:.25s transform,.25s box-shadow,.25s border-color;
+    }
+    .option:hover{transform:translateY(-4px); border-color:rgba(255,255,255,.18)}
+    .option .icon{font-size:2.3rem; display:block; margin-bottom:10px}
+    .option h3{margin:0 0 8px; font-size:1.45rem}
+    .option p{margin:0; color:var(--muted); line-height:1.65; max-width:420px}
+    .option::after{
+      content:"Tap to open";
+      position:absolute; right:22px; bottom:18px;
+      color:#ffe0ea; opacity:.8; font-size:.84rem; letter-spacing:.03em;
+    }
+
+    .panel{
+      position:fixed; inset:0; z-index:50;
+      display:none; align-items:center; justify-content:center;
+      background:rgba(11,6,10,.72);
+      backdrop-filter:blur(12px);
+      padding:18px;
+    }
+    .panel.show{display:flex}
+    .panelCard{
+      width:min(980px, 100%);
+      max-height:92vh;
+      overflow:auto;
+      border-radius:34px;
+      background:linear-gradient(145deg, rgba(29,14,25,.97), rgba(24,11,21,.98));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      padding:24px;
+      position:relative;
+    }
+    .panelTop{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:20px}
+    .panelTitle{font-family:Georgia, serif; font-size:clamp(1.8rem, 4vw, 3rem); margin:0}
+    .closeBtn{
+      appearance:none; border:0; cursor:pointer;
+      width:46px; height:46px; border-radius:50%;
+      background:rgba(255,255,255,.08); color:#fff; font-size:1.2rem;
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .sub{color:var(--muted); line-height:1.7; margin:0 0 18px}
+
+    .photoGrid{display:grid; grid-template-columns:repeat(12, 1fr); gap:14px}
+    .photoCard{
+      grid-column:span 4;
+      min-height:280px;
+      border-radius:24px;
+      overflow:hidden;
+      background:#2a1527;
+      border:1px solid rgba(255,255,255,.1);
+      position:relative;
+      cursor:pointer;
+    }
+    .photoCard img{width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.82) saturate(.92); transition:.35s transform,.35s filter}
+    .photoCard:hover img{transform:scale(1.04); filter:brightness(.9) saturate(1)}
+    .photoCard .cap{position:absolute; left:0; right:0; bottom:0; padding:16px; background:linear-gradient(transparent, rgba(11,6,10,.82)); font-size:.94rem}
+
+    .letter{
+      padding:clamp(22px, 4vw, 40px);
+      border-radius:28px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .letter p{font-family:Georgia, serif; font-size:clamp(1.08rem, 2vw, 1.28rem); line-height:1.9; color:#fff8fb}
+    .sign{text-align:right; color:var(--accent2); font-weight:800}
+
+    .reasons{display:grid; grid-template-columns:repeat(12, 1fr); gap:14px}
+    .reason{
+      grid-column:span 6;
+      padding:22px;
+      border-radius:24px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .reason .num{font-family:Georgia, serif; color:var(--accent2); font-size:2rem}
+    .reason h4{margin:10px 0 8px; font-size:1.15rem}
+    .reason p{margin:0; color:var(--muted); line-height:1.65}
+    .reason small{display:block; margin-top:10px; color:#ffe0ea; opacity:.78}
+
+    .surpriseBox{
+      text-align:center;
+      padding:40px 20px;
+      border-radius:28px;
+      background:radial-gradient(circle at 50% 20%, rgba(255,122,166,.18), transparent 22rem), rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .gift{font-size:4rem; display:block; animation:float 2.4s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}
+    #hiddenMessage{max-height:0; overflow:hidden; opacity:0; transition:.6s max-height,.6s opacity,.6s margin-top}
+    #hiddenMessage.show{max-height:500px; opacity:1; margin-top:18px}
+    .pillWrap{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:16px}
+    .pill{padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); color:#ffeef4}
+
+    .musicBtn{
+      position:fixed; right:18px; bottom:18px; z-index:40;
+      width:54px; height:54px; border-radius:50%; border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.12); color:#fff; cursor:pointer; box-shadow:0 10px 34px rgba(0,0,0,.28);
+      backdrop-filter:blur(14px); font-size:1.1rem;
+    }
+    .loveNote{
+      position:fixed; left:50%; top:14%; transform:translateX(-50%) translateY(-10px);
+      z-index:70; padding:14px 18px; border-radius:18px;
+      background:rgba(31,14,28,.94); border:1px solid rgba(255,255,255,.14);
+      color:#fff6fa; box-shadow:0 18px 50px rgba(0,0,0,.28);
+      opacity:0; transition:.35s; pointer-events:none; max-width:min(90vw,520px); text-align:center
+    }
+    .loveNote.show{opacity:1; transform:translateX(-50%) translateY(0)}
+    .heart{position:fixed; bottom:-30px; z-index:2; pointer-events:none; opacity:.55; animation:rise linear forwards}
+    @keyframes rise{to{transform:translateY(-115vh) rotate(25deg); opacity:0}}
+    canvas#confetti{position:fixed; inset:0; pointer-events:none; z-index:100}
+
+    @media (max-width:900px){
+      .option{grid-column:span 12}
+      .photoCard{grid-column:span 6}
+      .reason{grid-column:span 12}
+    }
+    @media (max-width:560px){
+      .countdown{grid-template-columns:repeat(2,1fr)}
+      .photoCard{grid-column:span 12}
+      .hero{padding:24px 0}
+      .panelCard{padding:18px}
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div id="loveNote" class="loveNote">A tiny birthday secret just for you. ✨</div>
+
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="heroCard">
+        <div class="eyebrow">20 August 2026 • A hidden little gift</div>
+        <h1>Happy Birthday,<br><span class="name" data-her-name>Her Name</span>.</h1>
+        <p class="lead">
+          This is not just one page. It’s a small hidden birthday world made for you —
+          full of little things you can open one by one.
+        </p>
+
+        <div class="countdown" aria-label="Birthday countdown">
+          <div class="timebox"><strong id="days">00</strong><span>Days</span></div>
+          <div class="timebox"><strong id="hours">00</strong><span>Hours</span></div>
+          <div class="timebox"><strong id="mins">00</strong><span>Minutes</span></div>
+          <div class="timebox"><strong id="secs">00</strong><span>Seconds</span></div>
+        </div>
+
+        <div class="btnRow">
+          <button class="btn primary clicky" id="unlockBtn">Open My Gift 🎁</button>
+          <button class="btn secondary clicky" id="miniLoveBtn">Little hearts ♡</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="menuWrap hidden" id="menuWrap">
+    <div class="wrap">
+      <div class="menuHeader">
+        <div class="eyebrow">Unlocked</div>
+        <h2>Your hidden birthday menu.</h2>
+        <p>Choose what you want to open first. Nothing is shown all at once — each part is a little secret on its own.</p>
+      </div>
+
+      <div class="optionGrid">
+        <article class="option clicky" data-open="photosPanel">
+          <span class="icon">📸</span>
+          <h3>My bubuw picts <3</h3>
+          <p>Open a little gallery of our favorite moments together.</p>
+        </article>
+
+        <article class="option clicky" data-open="letterPanel">
+          <span class="icon">💌</span>
+          <h3>Birthday Message</h3>
+          <p>A personal letter written just for you.</p>
+        </article>
+
+        <article class="option clicky" data-open="reasonsPanel">
+          <span class="icon">✨</span>
+          <h3>Why I Love You</h3>
+          <p>A few special reasons, one click at a time.</p>
+        </article>
+
+        <article class="option clicky" data-open="surprisePanel">
+          <span class="icon">🎁</span>
+          <h3>Final Surprise</h3>
+          <p>Open this when you’re ready for the last hidden part.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="panel" id="photosPanel">
+    <div class="panelCard">
+      <div class="panelTop">
+        <h3 class="panelTitle">My obsession <33333</h3>
+        <button class="closeBtn clicky" data-close>✕</button>
+      </div>
+      <div class="photoGrid">
+        <article class="photoCard clicky"><img src="photos/photo1.jpg" alt="Photo 1" onerror="this.style.display='none'"><div class="cap">The little BUBUWWWW</div></article>
+        <article class="photoCard clicky"><img src="photos/photo2.jpg" alt="Photo 2" onerror="this.style.display='none'"><div class="cap">My cutie pie</div></article>
+        <article class="photoCard clicky"><img src="photos/photo3.jpg" alt="Photo 3" onerror="this.style.display='none'"><div class="cap">Even with bare face still amazing</div></article>
+        <article class="photoCard clicky"><img src="photos/photo4.jpg" alt="Photo 4" onerror="this.style.display='none'"><div class="cap">Our little adventure</div></article>
+        <article class="photoCard clicky"><img src="photos/photo5.jpg" alt="Photo 5" onerror="this.style.display='none'"><div class="cap">Comfort & calm</div></article>
+        <article class="photoCard clicky"><img src="photos/photo6.jpg" alt="Photo 6" onerror="this.style.display='none'"><div class="cap">Still my favorite</div></article>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="letterPanel">
+    <div class="panelCard">
+      <div class="panelTop">
+        <h3 class="panelTitle">Birthday Message</h3>
+        <button class="closeBtn clicky" data-close>✕</button>
+      </div>
+      <div class="letter">
+        <p>
+          Happy birthday, <span data-her-name>Syaqilla Dwina Putri</span>.
+          I wanted to make something a little different for you something that feels personal,
+          warm, and full of us. So instead of just one message, I made you a small hidden place
+          where each click opens another piece of how much you mean to me.
+        </p>
+        <p>
+          Thank you for the laughs, the conversations, the comfort, and the little moments that became
+          special simply because you were there. I hope this next year brings you peace, joy, confidence,
+          and many reasons to smile. And selfishly, I hope I get to be part of many of those reasons.
+        </p>
+        <p>
+          No matter what happens, meeting you became one of my favorite parts of my story.
+        </p>
+        <p class="sign">Love,<br><span data-your-name>Your duduw</span> ❤️</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="reasonsPanel">
+    <div class="panelCard">
+      <div class="panelTop">
+        <h3 class="panelTitle">Why I Love You</h3>
+        <button class="closeBtn clicky" data-close>✕</button>
+      </div>
+      <div class="reasons">
+        <article class="reason clicky"><div class="num">01</div><h4>Your smile</h4><p>Especially the real one — the one that appears when you forget anyone is watching.</p><small>Tap me ✨</small></article>
+        <article class="reason clicky"><div class="num">02</div><h4>How you make me feel</h4><p>Safe enough to be myself, but excited about who I can become.</p><small>Tap me ✨</small></article>
+        <article class="reason clicky"><div class="num">03</div><h4>Us</h4><p>Because somehow our weirdness makes sense when it is together.</p><small>Tap me ✨</small></article>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="surprisePanel">
+    <div class="panelCard">
+      <div class="panelTop">
+        <h3 class="panelTitle">Final Surprise</h3>
+        <button class="closeBtn clicky" data-close>✕</button>
+      </div>
+      <div class="surpriseBox">
+        <span class="gift">🎁</span>
+        <p class="sub" style="max-width:620px;margin:0 auto 18px">This is where you can reveal a date, a promise, a food delivery, a future plan, or your final sweetest message.</p>
+        <button class="btn primary clicky" id="revealGiftBtn">Open the final surprise ✨</button>
+        <div id="hiddenMessage">
+          <h4 style="font-size:1.5rem; margin:6px 0 8px">This chapter isn't the end.</h4>
+          <p class="sub" style="max-width:680px; margin:0 auto">My surprise for you: <strong style="color:#fff">a special date together</strong>. I’m keeping the full details secret for now — but this one is already yours. ❤️</p>
+          <div class="pillWrap">
+            <span class="pill">More adventures</span>
+            <span class="pill">More random photos</span>
+            <span class="pill">More late-night talks</span>
+            <span class="pill">More us</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="song" loop preload="none">
+    <source src="music/song.mp3" type="audio/mpeg">
+  </audio>
+  <button class="musicBtn clicky" id="musicBtn" title="Play / pause music">♫</button>
+
+  <script>
+    const CONFIG = {
+      herName: "Syaqilla Dwina Putri (My Bubuw)",
+      yourName: "Your Duduw",
+      birthday: "2026-08-20T00:00:00+08:00"
+    };
+
+    document.querySelectorAll('[data-her-name]').forEach(el => el.textContent = CONFIG.herName);
+    document.querySelectorAll('[data-your-name]').forEach(el => el.textContent = CONFIG.yourName);
+    document.title = `Happy Birthday, ${CONFIG.herName} ❤️`;
+
+    const target = new Date(CONFIG.birthday).getTime();
+    function updateCountdown(){
+      const diff = target - Date.now();
+      if(diff <= 0){
+        ['days','hours','mins','secs'].forEach(id=>document.getElementById(id).textContent='00');
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('days').textContent = String(d).padStart(2,'0');
+      document.getElementById('hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('mins').textContent = String(m).padStart(2,'0');
+      document.getElementById('secs').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown(); setInterval(updateCountdown, 1000);
+
+    function heart(){
+      const el = document.createElement('div');
+      el.className = 'heart';
+      el.textContent = Math.random()>.5 ? '♡' : '♥';
+      el.style.left = (Math.random()*100)+'vw';
+      el.style.fontSize = (12 + Math.random()*22)+'px';
+      el.style.animationDuration = (5 + Math.random()*5)+'s';
+      el.style.color = Math.random()>.5 ? '#ff9fbb' : '#ffd9e4';
+      document.body.appendChild(el);
+      setTimeout(()=>el.remove(), 10000);
+    }
+    setInterval(heart, 850);
+
+    function showLoveNote(msg){
+      const box = document.getElementById('loveNote');
+      box.textContent = msg;
+      box.classList.add('show');
+      clearTimeout(showLoveNote.t);
+      showLoveNote.t = setTimeout(()=>box.classList.remove('show'), 1800);
+    }
+
+    function createRipple(e, el){
+      const circle = document.createElement('span');
+      circle.className = 'ripple';
+      const rect = el.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + 'px';
+      circle.style.left = (e.clientX - rect.left - size/2) + 'px';
+      circle.style.top = (e.clientY - rect.top - size/2) + 'px';
+      el.appendChild(circle);
+      setTimeout(()=>circle.remove(), 650);
+    }
+
+    function pop(el){
+      el.classList.remove('click-pop');
+      void el.offsetWidth;
+      el.classList.add('click-pop');
+    }
+
+    document.querySelectorAll('.clicky').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        createRipple(e, el);
+        pop(el);
+      });
+    });
+
+    document.getElementById('miniLoveBtn').addEventListener('click', ()=>{
+      for(let i=0;i<18;i++) setTimeout(heart, i*45);
+      showLoveNote('Sending a little burst of love your way. ♡');
+    });
+
+    document.getElementById('unlockBtn').addEventListener('click', ()=>{
+      document.getElementById('menuWrap').classList.remove('hidden');
+      document.getElementById('menuWrap').scrollIntoView({behavior:'smooth'});
+      showLoveNote('Your hidden birthday menu has been unlocked. ✨');
+      burst();
+    });
+
+    document.querySelectorAll('[data-open]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const panel = document.getElementById(btn.dataset.open);
+        panel.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        showLoveNote('Opened with love. ❤️');
+      });
+    });
+
+    function closePanels(){
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click', closePanels));
+    document.querySelectorAll('.panel').forEach(panel=>{
+      panel.addEventListener('click', (e)=>{ if(e.target === panel) closePanels(); });
+    });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closePanels(); });
+
+    const reasonNotes = [
+      'This one is true in more ways than one. ✨',
+      'Another reason you make life feel softer. ♡',
+      'I could probably keep adding to this list forever. ❤️',
+      'You are very easy to adore, honestly. 🌙',
+      'And yes, this is me being extra on purpose. 💫'
+    ];
+    document.querySelectorAll('.reason').forEach(card=>{
+      card.addEventListener('click', ()=>{
+        showLoveNote(reasonNotes[Math.floor(Math.random()*reasonNotes.length)]);
+      });
+    });
+    document.querySelectorAll('.photoCard').forEach(card=>{
+      card.addEventListener('click', ()=> showLoveNote('A memory opened. 📸'));
+    });
+
+    const audio = document.getElementById('song');
+    const musicBtn = document.getElementById('musicBtn');
+    let playing = false;
+    musicBtn.addEventListener('click', async ()=>{
+      try{
+        if(!playing){ await audio.play(); musicBtn.textContent = '❚❚'; playing = true; showLoveNote('Music on. ♫'); }
+        else { audio.pause(); musicBtn.textContent = '♫'; playing = false; showLoveNote('Music paused.'); }
+      }catch(e){
+        alert('Add your song as music/song.mp3 first.');
+      }
+    });
+
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let pieces = [];
+    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    function burst(){
+      const glyphs = ['❤','✦','•','♡'];
+      pieces = Array.from({length:120}, ()=>({
+        x:innerWidth/2, y:innerHeight*.42,
+        vx:(Math.random()-.5)*12, vy:-3-Math.random()*10,
+        g:.18+Math.random()*.12, r:Math.random()*6.28,
+        vr:(Math.random()-.5)*.22, size:10+Math.random()*15,
+        glyph:glyphs[Math.floor(Math.random()*glyphs.length)], life:100+Math.random()*60
+      }));
+      requestAnimationFrame(draw);
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      pieces.forEach(p=>{
+        p.x += p.vx; p.y += p.vy; p.vy += p.g; p.r += p.vr; p.life--;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.r);
+        ctx.globalAlpha = Math.max(0, Math.min(1, p.life/60));
+        ctx.fillStyle = Math.random()>.5 ? '#ff8fb0' : '#ffd58a';
+        ctx.font = `${p.size}px serif`; ctx.fillText(p.glyph,0,0); ctx.restore();
+      });
+      pieces = pieces.filter(p=>p.life>0 && p.y < innerHeight + 40);
+      if(pieces.length) requestAnimationFrame(draw); else ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+    document.getElementById('revealGiftBtn').addEventListener('click', ()=>{
+      document.getElementById('hiddenMessage').classList.add('show');
+      showLoveNote('Final surprise unlocked. Happy birthday, beautiful. 🎉');
+      burst();
+    });
+  </script>
+</body>
+</html>
